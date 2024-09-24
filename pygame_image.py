@@ -37,7 +37,7 @@ def main():
             diff_x += 2
         if key_lst[pg.K_LEFT]:
             ##kt_rct.move_ip((-1, 0))
-            diff_x -= 1
+            diff_x -= 2
         else:
             ##kt_rct.move_ip((-1, 0)) #キーが押されていない場合
             diff_x -= 1
