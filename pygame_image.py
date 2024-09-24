@@ -13,21 +13,37 @@ def main():
     fbg_img = pg.transform.flip(bg_img, True, False)
     kt_img = pg.image.load("fig/3.png")
     kt_img = pg.transform.flip(kt_img, True, False)
+
+    kt_rct = kt_img.get_rect() #Surfaceからrect(四角形)を抽出
+    kt_rct.center = 200, 300 #rectを使った初期座標の設定(画像を移動させる場合はこっち)
+
     tmr = 0
+
     while True:
         for event in pg.event.get():
             if event.type == pg.QUIT: return
+
+        key_lst = pg.key.get_pressed()
+        if key_lst[pg.K_UP]:
+            kt_rct.move_ip((0, -1)) #moveip 特定のキーが押されている間(True)、縦or横に移動させる (横,　縦)
+        if key_lst[pg.K_DOWN]:
+            kt_rct.move_ip((0, +1))
+        if key_lst[pg.K_RIGHT]:
+            kt_rct.move_ip((+1, 0))
+        if key_lst[pg.K_LEFT]:
+            kt_rct.move_ip((-1, 0))
+
         x = -(tmr%3200)
         screen.blit(bg_img, [x, 0]) #自身に別のSurdaceを貼り付ける
         screen.blit(fbg_img, [x+1600, 0])
         screen.blit(bg_img, [x+3200, 0])
         screen.blit(fbg_img, [x+4800, 0])
-        screen.blit(kt_img, [200, 300])
+        screen.blit(kt_img, kt_rct)
+
         pg.display.update()
-        #if tmr >= 800:
-        #    tmr = 0
+
         tmr += 1
-        #print(tmr)    
+        #print(tmr)   
         clock.tick(200)
 
 
