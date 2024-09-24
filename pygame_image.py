@@ -23,17 +23,26 @@ def main():
         for event in pg.event.get():
             if event.type == pg.QUIT: return
 
+        diff_x = 0
+        diff_y = 0
         key_lst = pg.key.get_pressed()
         if key_lst[pg.K_UP]:
-            kt_rct.move_ip((0, -1)) #moveip 特定のキーが押されている間(True)、縦or横に移動させる (横,　縦)
+            diff_y -= 1
+            #kt_rct.move_ip((0, -1)) #moveip 特定のキーが押されている間(True)、縦or横に移動させる (横,　縦)
         if key_lst[pg.K_DOWN]:
-            kt_rct.move_ip((0, +1))
+            #kt_rct.move_ip((0, +1))
+            diff_y += 1
         if key_lst[pg.K_RIGHT]:
-            kt_rct.move_ip((+2, 0))
+            ##kt_rct.move_ip((+2, 0))
+            diff_x += 2
         if key_lst[pg.K_LEFT]:
-            kt_rct.move_ip((-1, 0))
+            ##kt_rct.move_ip((-1, 0))
+            diff_x -= 1
         else:
-            kt_rct.move_ip((-1, 0))
+            ##kt_rct.move_ip((-1, 0)) #キーが押されていない場合
+            diff_x -= 1
+
+        kt_rct.move_ip((diff_x, diff_y))
 
         x = -(tmr%3200)
         screen.blit(bg_img, [x, 0]) #自身に別のSurdaceを貼り付ける
